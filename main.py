@@ -16,6 +16,12 @@ ENTRY = (
 
 
 def main() -> None:
+    # Gate (competition RULES.txt): /output/entry.txt must be UTF-8,
+    # 1-200 chars, not only whitespace. Fail loudly instead of
+    # submitting a line the judge would refuse.
+    assert 1 <= len(ENTRY) <= 200, "entry must be 1-200 chars"
+    assert ENTRY.strip(), "entry must not be only whitespace"
+    assert "\n" not in ENTRY, "entry must be a single line"
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8", newline="") as f:
         f.write(ENTRY)
